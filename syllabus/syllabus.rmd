@@ -1,0 +1,239 @@
+---
+output:
+  pdf_document:
+    keep_tex: true
+    fig_caption: yes
+    latex_engine: pdflatex
+    template: scriven_svm-latex-syllabus.tex
+geometry: margin=0.85in
+
+title: "INR3933: Politics of International Law | (Online Instruction)"
+author: "Lecturer: Joshua Scriven"
+date: "Summer B 2020"
+quote: "[T]he blood of millions of men, numberless and unprecedented sufferings, useless slaughter, and frightful ruin, are the sanction of the covenant which unites you in a solemn pledge which must change the future history of the world."
+quoteauth: "Address of his Holiness Pope Paul VI to the United Nations (Oct. 4, 1965)"
+email: "jscriven@fsu.edu"
+web: "github.com/joshuascriven"
+officehours: "MW 12:30--13:45"
+office: "[Online](https://fsu.zoom.us/meeting)"
+classroom: "[Online](https://fsu.zoom.us/meeting)"
+classhours: "M--F 11:00--12:15"
+seal: "seal"
+fontfamily: mathpazo
+fontsize: 10pt
+tables: yes
+---
+
+<!-- created by https://github.com/joshuascriven April 2020-->
+
+```{r loadpacks, echo = FALSE, message = FALSE}
+library(RefManageR) # needed for reference printing from bibfiles
+library(dplyr)
+library(knitr)
+library(kableExtra)
+```
+
+```{r functions, echo = FALSE, message = FALSE}
+custdate <- function(s, d, i, divider) {
+ s <- format(s[i], format="%m/%d")
+ d <- format(d[i], format="%m/%d")
+ i <- sprintf("%02d", i)
+ tmp <- paste(unit,i,sep='',", ", s, divider,d)
+ return(tmp)
+}
+
+advdate <- function(obj, adv) {
+ tmon <- obj + 7*(adv-1)
+ tfri <- obj + 4 + 7*(adv-1)
+ tmon <- format(tmon, format="%m/%d")
+ tfri <- format(tfri, format="%m/%d")
+ zadv <- sprintf("%02d", adv)
+ tmp <- paste(unit,zadv,sep='',", ", tmon," - ",tfri)
+ return(tmp)
+}
+```
+
+```{r userinput, echo = FALSE}
+classify <- read.csv("classify.csv") # file containing and classifying your readings
+course_parts <- read.csv("course_parts.csv") # contains unit name and (optionally) the start and end date
+composition <- read.csv("composition.csv") 
+grading <- read.csv("grading.csv") 
+bibloc <- "bibfile.bib" # bibfile with bibentries
+bibpattern <- "[A-Za-z]:[0-9]" # regex pattern uniquely identifying bib entries in classify
+unit <- "Module " # the term for each unit of readings (e.g., "week", "section", "module")
+not_main_readings <- "Cases" # term for readings that are not the main readings (e.g., "Suggested", "Supplemental", "Other")
+
+# !!! Unit options
+dating <- "custom" # set to auto or leave blank (custom)
+day0 <- "2020-05-11" # the first day of your course/reading schedule
+# !!! If using custom dating:
+divider <- " & " # set divider for date ranges (e.g., '&', '-')
+
+```
+
+```{r date, echo = FALSE}
+start <- as.Date(course_parts$date_start, tryFormats = c("%Y-%m-%d", "%Y/%m/%d","%d-%b")) # verify correct date pattern  
+end <- as.Date(course_parts$date_end, tryFormats = c("%Y-%m-%d", "%Y/%m/%d","%d-%b")) # verify correct date pattern
+topics <- as.character(course_parts$topics)
+day0 <- as.Date(day0)
+names(grading) <- c("Grade", "Range", "Grade", "Range", "Grade", "Range")
+```
+
+```{r makebib, echo = FALSE}
+bib <- ReadBib(bibloc) # Change to whatever is your .bib file
+myopts <- BibOptions(bib.style = "authoryear", style="latex", first.inits=F, max.names = 20, no.print.fields = c("doi"), sorting = "nyt")
+```
+
+# Course Description
+
+In this course, students will use a combination of prerecorded lectures, tutorial sessions, group presentations, short quizzes, and an interactive simulation to cover topics in international law (IL) distributed across four modules:
+
+1. What is international law and where is it found?
+2. Actors in international law: who takes part? 
+3. When does international law apply?
+4. How is international law applied?
+
+# Learning Objectives
+
+This one-semester course is intended to:
+
+1. introduce the fundamentals of IL and its relationship with domestic law;
+2. improve your understanding of the role of IL and international organizations;
+3. familiarize you with the legal principles governing the creation, rights, and duties of subjects of IL;
+7. help you analyze the interplay of legal customs and norms which govern diplomacy and treaties;
+8. examine circumstances where law is absent or deficient in maintaining stability and peaceful interactions; and
+9. discuss whether IL has been beneficial to the human and global environment.
+
+# Required Textbook
+
+```{r echo=FALSE, message=FALSE, warning=TRUE, results="asis"}
+bib["Dixon:2016aa"]
+```
+
+\newpage
+
+# Grades
+
+## Composition
+
+Your final course grade is a combination of scores according to the table shown below. Additional explanations for each component can be found on the *Assignments* tab on Canvas.
+
+### Quizzes
+
+Each module has a short, timed quiz which must be completed before beggining the subsequent modules. Quizzes are open-book. The course quiz with the lowest grade is automatically dropped.
+
+### Group Presentations
+
+There are two group presentations, with dates assigned within the second week of the semester. Instructions for the presentations are the same, except for subject of the research for each. Each group must obtain approval for the presentation topic(s) at least one week before the presentation. Each class group must present on:
+
+1. An topic of significance to contemporary international legal and political discourse, which may implicate multiple legal cases and affects the couuntry to which the student was assigned (**Contemporary Issue Presentation**); and
+2. A single case mentioned in the course required readings or lecture slides (**Case Law Presentation**), not to include any case presented on in #1 of this same list.
+
+The group grade awarded by the professor will be assigned with varying weight to each group member. Weights are based on the anonymous evaluations provided by the other members of the group. The final grade awarded to group members will differ if their contributions are evaluated differently.
+
+### Reading Guides
+
+A set of graded questions is provided for each week's readings to steer students towards the more important parts of the readings. Completed reading guides serve as helpful study guides for the course quizzes and help to identify areas towards which a student might need to focus more research attention.
+
+### Discussion Grades
+
+- Each student will be assigned a list of questions, from which (s)he will choose one to answer in an initial **Discussion Post** to the discussion board. The Discussion Post should consist of a minimum of 300 words.
+- With a total of two (2) **Discussion Responses**, a student will respond to a discussion post offered by two (2) other students with at least 100 words.
+
+### Final Project
+
+The Final Project will comprise the last two weeks of the semester. For the project, students will be presented with a hypothetical political scenario.
+
+1. In **Part 1**, as a group, students submit a reference guide, along with peer evaluations of group members' contribution. The reference guide makes note of every legal topic/concept and case covered in the course implicated in the hypothetical scenario.
+2. In **Part 2**, students submit indiviual, short essay responses to a set of questions.
+
+## Scales  
+
+This course uses the grading scale displayed here. Due dates are rare, but when they do exist, they should be adhered to. Assignments will receive a deduction of 5 percent for each day they are late (i.e., SMTWRFA). Students are expected to complete missing assignments before seeking any extra credit (offered to the entire class). Extra credit will not be assigned within the last two weeks of the semester.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results="asis"}
+kable(list(composition,grading), caption = "Grade Composition and Grading Scale",
+      format = "latex",
+      booktabs = TRUE) %>%
+  kable_styling(latex_options = "hold_position")
+
+```
+
+\newpage
+
+# Course Policies 
+
+## Student Responsibility Highlights
+
+- Students should log on to Canvas at least once a day to check for course updates. All links to external sites such as Zoom and office appointments, can be found on the course's Canvas homepage.
+- Student should review module readings and lectures before tutorial sessions.
+- Students should contribute equally to group work and identify classmates who do not.
+- Students will not disrespect each other's religious, cultural, political, or ideological beliefs.
+- Students will accept each other's right to reasonably debate religious, cultural, political, or ideological beliefs of any kind.^[Here, a reasonable argument must present at least one statement for and one against your chosen point of view.] 
+
+## Rules for On-line Interaction
+
+- You should be fully dressed as if you were physically attending a university class.
+- Caring for dependents is **not** considered distracting. Should the need arise, you are allowed to have people or pets **quietly sit** with you during video-enabled Zoom meetings.
+- Keep microphones on mute, unless you are answering or offering a question.
+- Please use the nonverbal features available to you on Zoom, where possible.
+- You may also silently use gestures you would normally use in a physical classroom environment, such as raising your hand.
+- **Remember: sarcasm is fine; joke within reason; and sexual harassment is a thing. Our on-line communications might not be conveyed as positively as our in-class interactions might.**
+
+## Syllabus Change Policy
+
+Except for changes that substantially affect implementation of the evaluation (grading) statement, this syllabus is a guide for the course and is subject to change with advance notice.
+
+# University Policies
+
+## University Attendance Policy
+I do not take attendance in this course. Excused absences include documented illness, deaths in the family and other documented crises, call to active military duty or jury duty, religious holy days, and official University activities. These absences will be accommodated in a way that does not arbitrarily penalize students who have a valid excuse. Consideration will also be given to students whose dependent children experience serious illness.
+
+## Academic Honor Policy
+
+The Florida State University Academic Honor Policy outlines the University's expectations for the integrity of students' academic work, the procedures for resolving alleged violations of those expectations, and the rights and responsibilities of students and faculty members throughout the process. Students are responsible for reading the Academic Honor Policy and for living up to their pledge to "...be honest and truthful and... [to] strive for personal and institutional integrity at Florida State University." (For more details see the FSU Academic Honor Policy and procedures for addressing alleged violationsLinks to an external site..)
+
+## Americans With Disabilities Act
+
+Students with disabilities needing academic accommodation should (1) register with and provide documentation to the Student Disability Resource Center and (2) bring a letter to the instructor indicating the need for accommodation and what type. Please note that instructors are not allowed to provide classroom accommodation to a student until appropriate verification from the Student Disability Resource Center has been provided. This syllabus and other class materials are available in alternative format upon request. For more information about services available to FSU students with disabilities, contact the Student Disability Resource Center (SDRC) 108 Student Services Building | Florida State University | (850) 644-9566 (voice) | (850) 644-8504 (TDD) | Email: sdrc@admin.fsu.edu
+
+
+\newpage
+
+<!-- The remainder of the code will compile & print unit reading lists -->
+# Class Schedule and Readings
+
+The class schedule is found on the *Syllabus* page on Canvas. They correspond to the readings below.
+
+\Urlmuskip=0mu plus 2mu
+
+
+```{r echo=FALSE, message=FALSE, warning=TRUE, results="asis"}
+for(i in 1:length(topics)) {
+  ref <- as.character((classify %>% filter(type == 'refs' & unit==i))$cite)
+  sup <- as.character((classify %>% filter(type == 'sups' & unit==i))$cite)
+  if (length(ref)!=0) {
+    if(dating =="auto"){
+      cat("  \n##", advdate(day0, i), "~", topics[i],"|", length(ref), "Readings", "  \n")
+      } else {
+      cat("  \n##", custdate(start, end, i, divider), "~", topics[i],"|", length(ref), "Readings", "  \n")
+      }
+    cat(as.character(ref[grep(bibpattern, ref, invert=T)]), sep="  \n", "  \n")
+    if(length(bib[ref])!=0){
+      print(bib[ref])
+    }
+    }
+
+  if (length(sup)!=0) {
+    cat("  \n###", not_main_readings, " |", length(sup), "Readings", "  \n")
+    cat(as.character(sup[grep(bibpattern, sup, invert=T)]), sep="  \n", "  \n")
+    if(length(bib[sup])!=0){
+      print(bib[sup])
+    }
+    }
+}
+```
+
+
+
